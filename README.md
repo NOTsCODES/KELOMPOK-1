@@ -1,26 +1,76 @@
-# Portofiles
+<div align="center">
 
-Platform discovery karya seni, dibangun dari desain Figma memakai **HTML, CSS, JavaScript (vanilla), PHP, dan MySQL**. Tidak perlu framework, Composer, atau npm.
+# 🎨 Portofiles
 
-## Cara menjalankan di XAMPP
+**Tempat seniman memamerkan karya, dan orang menemukan inspirasi baru.**
+
+Platform portofolio dan discovery karya seni yang dibangun dari desain Figma.
+Ringan, tanpa framework, dan mudah dipelajari.
+
+![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-PDO-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![CSS3](https://img.shields.io/badge/CSS3-Custom-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![XAMPP](https://img.shields.io/badge/XAMPP-Ready-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)
+
+[Fitur](#-fitur) · [Mulai Cepat](#-mulai-cepat) · [Struktur](#-struktur-folder) · [Keamanan](#-keamanan) · [Rencana](#-rencana-berikutnya)
+
+</div>
+
+---
+
+## ✨ Fitur
+
+| | |
+| --- | --- |
+| 🖼️ **Galeri karya** | Jelajahi karya dengan filter kategori, urutan, pencarian, dan tombol *Explore more*, tanpa reload halaman. |
+| 🔍 **Lightbox detail** | Lihat karya lebih besar, baca deskripsi, dan pindah antar karya dengan tombol atau panah ← →. Tutup dengan `Esc`. |
+| ❤️ **Like & follow** | Beri apresiasi pada karya dan ikuti seniman favoritmu. |
+| 👩‍🎨 **Profil publik** | Setiap seniman punya halaman portofolio sendiri (`profile.php?u=username`). |
+| 📊 **Dashboard studio** | Ringkasan statistik, daftar project, karya tersimpan, dan pengaturan akun. |
+| ⬆️ **Upload project** | Drag & drop gambar dengan preview. Simpan sebagai draft atau langsung publish. |
+| 🔐 **Akun lengkap** | Daftar, login, "Keep me signed in", dan indikator kekuatan password. |
+| 📱 **Responsif** | Tampilan menyesuaikan layar desktop, tablet, dan ponsel. |
+
+> Antarmukanya sengaja dibuat bersih dan sederhana: tanpa tirai transisi, kursor kustom, atau efek hover yang ramai.
+
+---
+
+## 🚀 Mulai Cepat
+
+Dibutuhkan **XAMPP** (Apache + MySQL + PHP). Tidak perlu Composer atau npm.
 
 1. Salin folder `portofiles` ke `C:\xampp\htdocs\` (Windows) atau `/Applications/XAMPP/htdocs/` (macOS).
 2. Buka **XAMPP Control Panel**, lalu **Start** Apache dan MySQL.
-3. Buka `http://localhost/phpmyadmin`, pilih tab **Import**, pilih file `sql/portofiles.sql`, lalu klik **Go**.
-   File ini membuat database `portofiles` sekaligus data contohnya.
-4. Buka `http://localhost/portofiles/`.
+3. Buka `http://localhost/phpmyadmin`, pilih tab **Import**, pilih `sql/portofiles.sql`, lalu klik **Go**.
+   File ini membuat database `portofiles` beserta data contohnya.
+4. Buka **http://localhost/portofiles/** 🎉
 
 Kalau user atau password MySQL kamu bukan `root` tanpa password, ubah di `config/config.php`.
 
-### Akun demo
+### 🔑 Akun demo
 
 | Email | Password |
 | --- | --- |
-| maya@portofiles.test | portofiles123 |
+| `maya@portofiles.test` | `portofiles123` |
 
 Akun lain (`luca@`, `sofia@`, `noah@`, `amara@`, `yuki@` + `portofiles.test`) memakai password yang sama.
 
-## Struktur folder
+---
+
+## 🧰 Teknologi
+
+| Lapisan | Dipakai |
+| --- | --- |
+| Backend | PHP 8 dengan PDO dan prepared statement |
+| Database | MySQL / MariaDB |
+| Frontend | HTML, CSS, dan JavaScript murni (vanilla) |
+| Font | Inter lewat Google Fonts |
+| Server lokal | XAMPP |
+
+---
+
+## 🗂️ Struktur folder
 
 ```
 portofiles/
@@ -28,60 +78,60 @@ portofiles/
 ├── login.php          Sign in
 ├── register.php       Join (daftar akun)
 ├── logout.php
-├── dashboard.php      Your studio: overview, my projects, saved work, settings
-├── upload.php         Upload / edit project (drag & drop gambar)
+├── dashboard.php      Studio: overview, my projects, saved work, settings
+├── upload.php         Upload / edit project
 ├── actions.php        Publish, pindah ke draft, hapus project
-├── profile.php        Profil publik artis (?u=username)
-├── artists.php        Daftar artis
+├── profile.php        Profil publik seniman (?u=username)
+├── artists.php        Daftar seniman
 ├── about.php          About, community guidelines, privacy
 ├── api/               Endpoint AJAX (JSON)
 │   ├── artworks.php   Filter, sort, search, "Explore more"
 │   ├── like.php       Like / appreciation
-│   ├── follow.php     Follow artis
+│   ├── follow.php     Follow seniman
 │   └── view.php       Hitung views saat karya dibuka
 ├── config/config.php  Pengaturan database & aplikasi
 ├── includes/          Koneksi DB, helper, auth, layout, partial
-├── assets/css/style.css
-├── assets/js/main.js  Semua animasi & interaksi
-├── assets/img/        Gambar karya dari Figma
+├── assets/
+│   ├── css/style.css
+│   ├── js/main.js     Interaksi halaman
+│   └── img/           Gambar karya dari Figma
 ├── uploads/           Gambar hasil upload user
 └── sql/portofiles.sql Skema + data contoh
 ```
 
-## Animasi & interaksi
+---
 
-- Tirai transisi antar halaman (dan intro logo di kunjungan pertama)
-- Judul muncul baris per baris dari balik mask
-- Kartu karya terbuka dengan clip-path saat discroll, tilt 3D + parallax + kilau cahaya saat hover
-- Kursor kustom yang membesar jadi "View" di atas karya
-- Tombol magnetik, isian tombol yang naik saat hover
-- Pil filter kategori yang meluncur, galeri berganti tanpa reload
-- Lightbox detail karya: gambar "terbang" dari kartu ke layar penuh, navigasi ← → dan Esc
-- Like dengan animasi hati + percikan partikel
-- Angka statistik menghitung naik, progress bar terisi, garis tab meluncur
-- Halaman Artists: gambar karya mengikuti kursor saat hover nama
-- Navigasi menyembunyi saat scroll turun, garis progres scroll di bawah navigasi
-- Menghormati pengaturan **Reduce motion** di sistem operasi
+## 🛡️ Keamanan
 
-## Keamanan yang sudah diterapkan
+- ✅ Query memakai **PDO prepared statement** (anti SQL injection)
+- ✅ Semua output di-escape dengan `e()` (anti XSS)
+- ✅ **Token CSRF** di setiap form dan request AJAX
+- ✅ Password disimpan dengan `password_hash()`
+- ✅ `session_regenerate_id()` saat login, cookie session `HttpOnly` + `SameSite`
+- ✅ "Keep me signed in" memakai token selector/validator yang di-hash
+- ✅ Upload dicek dari isi file (MIME + `getimagesize`), nama file diacak, dan folder `uploads/` tidak bisa menjalankan PHP
+- ✅ Folder `config/`, `includes/`, dan `sql/` diblokir dari browser lewat `.htaccess`
 
-- Query memakai PDO prepared statement (anti SQL injection)
-- Semua output di-escape dengan `e()` (anti XSS)
-- Token CSRF di setiap form dan request AJAX
-- Password disimpan dengan `password_hash()`
-- `session_regenerate_id()` saat login, cookie session `HttpOnly` + `SameSite`
-- "Keep me signed in" memakai token selector/validator yang di-hash
-- Upload dicek dari isi file (MIME + `getimagesize`), nama file acak, dan folder `uploads/` tidak bisa menjalankan PHP
-- Folder `config/`, `includes/`, dan `sql/` diblokir dari browser lewat `.htaccess`
+---
 
-## Yang belum ada
+## 🗺️ Rencana berikutnya
 
-- **Login Google**: tombolnya sudah ada, tapi perlu Client ID dari Google Cloud Console.
-- **Lupa password**: butuh pengiriman email (misalnya PHPMailer + SMTP).
-- **Gambar beresolusi tinggi**: gambar di `assets/img/` diambil dari Figma pada ukuran 1x. Untuk hasil lebih tajam, export ulang dari Figma pada 2x dengan nama file yang sama.
+- [ ] **Lupa password**: butuh pengiriman email (misalnya PHPMailer + SMTP).
+- [ ] **Login dengan Google**: perlu Client ID dari Google Cloud Console.
+- [ ] **Gambar lebih tajam**: gambar di `assets/img/` diambil dari Figma pada 1x. Export ulang pada 2x dengan nama file yang sama.
 
-## Sebelum online (hosting)
+---
+
+## 🌐 Sebelum online (hosting)
 
 - Ubah `APP_DEBUG` menjadi `false` di `config/config.php`.
 - Pakai user database khusus, bukan `root`.
 - Aktifkan HTTPS.
+
+---
+
+<div align="center">
+
+Dibuat dengan ☕ dan rasa cinta pada karya seni.
+
+</div>

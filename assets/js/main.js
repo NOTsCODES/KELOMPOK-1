@@ -16,7 +16,7 @@
   /* ---------------- 1. Utilitas ---------------- */
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const calm = true; // mode sederhana: tanpa animasi & efek hover
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const lerp = (a, b, t) => a + (b - a) * t;
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -128,40 +128,6 @@
 
   // Progress bar scroll di garis navigasi
   const progressEl = $('[data-scroll-progress]');
-
-  /* ---------------- 4. Kursor kustom ---------------- */
-  const cursor = $('.cursor');
-  if (finePointer && !calm && cursor) {
-    html.classList.add('has-cursor');
-    const dot = $('.cursor__dot', cursor);
-    const ring = $('.cursor__ring', cursor);
-    const label = $('.cursor__label', cursor);
-    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, shown = false;
-
-    addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      if (!shown) { rx = mx; ry = my; shown = true; cursor.classList.remove('is-hidden'); }
-      dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-    }, { passive: true });
-    document.addEventListener('mouseleave', () => cursor.classList.add('is-hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('is-hidden'));
-    addEventListener('mousedown', () => cursor.classList.add('is-down'));
-    addEventListener('mouseup', () => cursor.classList.remove('is-down'));
-
-    (function loop() {
-      rx = lerp(rx, mx, 0.18); ry = lerp(ry, my, 0.18);
-      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      requestAnimationFrame(loop);
-    })();
-
-    document.addEventListener('mouseover', (e) => {
-      const view = e.target.closest('[data-cursor="view"]');
-      const hover = e.target.closest('a, button, label, input[type="checkbox"], [data-menu-toggle]');
-      cursor.classList.toggle('is-view', !!view);
-      cursor.classList.toggle('is-hover', !view && !!hover);
-      if (view) label.textContent = view.dataset.cursorLabel || 'View';
-    });
-  }
 
   /* ---------------- 5. Tombol magnetik ---------------- */
   if (finePointer && !calm) {
@@ -706,8 +672,6 @@
     update();
   });
 
-  // Google login belum aktif → beri info
-  $$('[data-google]').forEach((b) => b.addEventListener('click', () => toast('Google sign-in is coming soon. Use your email for now.')));
   $$('[data-forgot]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); toast('Email hello@portofiles.art and we’ll help you reset it.'); }));
 
   // Validasi ringan sebelum submit login/daftar (efek getar)

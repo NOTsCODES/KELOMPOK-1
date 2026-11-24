@@ -25,7 +25,7 @@ function page_start(string $title, string $bodyClass = ''): void
     (function (d) {
       d.classList.add('js');
       try {
-        var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var calm = true;
         if (!calm && (sessionStorage.getItem('pf-nav') || !sessionStorage.getItem('pf-seen'))) d.classList.add('pf-cover');
       } catch (e) {}
     })(document.documentElement);
@@ -35,7 +35,6 @@ function page_start(string $title, string $bodyClass = ''): void
   <!-- Tirai transisi antar halaman -->
   <div class="curtain" aria-hidden="true"><div class="curtain__panel"></div><span class="curtain__logo">portofiles</span></div>
   <!-- Kursor kustom (hanya mouse) -->
-  <div class="cursor is-hidden" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label">View</span></div><div class="cursor__dot"></div></div>
   <div class="toasts" aria-live="polite"></div>
     <?php
     foreach (take_flashes() as $f) {
