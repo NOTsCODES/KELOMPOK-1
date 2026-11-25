@@ -1,0 +1,2 @@
+# Config hosting (berisi password database, jangan di-commit)
+config/config.infinityfree.php
